@@ -5,7 +5,8 @@
   <strong>Description:</strong>
   <%= @pin.description %>
 </p>
-
+<% if @pin.user == current_user %>
 <div class="panel-footer"><%= link_to 'Edit', edit_pin_path(@pin), class: 'btn btn-primary' %> |
+  <% end %>
   <%= link_to 'Back', pins_path, class: 'btn btn-default' %>
 </div> 

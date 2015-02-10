@@ -7,35 +7,49 @@ class PinsController < ApplicationController
 
   def index
     @pins = Pin.all
-    respond_with(@pins)
+#     respond_with(@pins)
   end
 
   def show
-    respond_with(@pin)
+#     respond_with(@pin)
   end
 
   def new
-    @pin = Pin.new
-    respond_with(@pin)
+    @pin = current_user.pins.build
+#     @pin = Pin.new
+#     respond_with(@pin)
   end
 
   def edit
   end
 
   def create
-    @pin = Pin.new(pin_params)
-    @pin.save
-    respond_with(@pin)
+    @pin = current_user.pins.build(pin_params)
+    if @pin.save
+      redirect_to @pin, notice: 'Pin was successfully created..'
+    else
+      render action: 'new'
+    end
   end
+    
+#     @pin = Pin.new(pin_params)
+#     @pin.save
+#     respond_with(@pin)
+#   end
 
   def update
-    @pin.update(pin_params)
-    respond_with(@pin)
-  end
+   if @pin.update(pin_params)
+     redirect_to @pin, notice: 'Pin was successfully updated'
+#     respond_with(@pin)
+   else
+       render action: 'edit'
+     end
+   end
 
   def destroy
     @pin.destroy
-    respond_with(@pin)
+    redirect_to pins_url
+#     respond_with(@pin)
   end
 
   private
@@ -43,8 +57,10 @@ class PinsController < ApplicationController
       @pin = Pin.find(params[:id])
     end
 
-    def pin_params
-      params.require(:pin).permit(:description)
+    def pin_params 
+      
+      params.require(:pin) .permit(:description)
+#       @pin = Pin.find(params[:id])
     end
   
     def correct_user

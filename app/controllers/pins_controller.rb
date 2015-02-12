@@ -6,8 +6,7 @@ class PinsController < ApplicationController
   respond_to :html
 
   def index
-    @pins = Pin.all.order("created_at DESC")
-#     respond_with(@pins)
+    @pins = Pin.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 3)
   end
 
   def show
@@ -66,3 +65,4 @@ class PinsController < ApplicationController
       redirect_to pins_path, notice: "Not authorized to edit this pin" if @pin.nil?
     end
 end
+

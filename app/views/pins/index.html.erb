@@ -16,6 +16,8 @@
         <% end %>
 
 <%= link_to 'New Pin', new_pin_path %>
+        
     </div>
   </div>
 </div>
+<%= will_paginate @pins, renderer: BootstrapPagination::Rails %>

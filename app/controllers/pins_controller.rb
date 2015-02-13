@@ -57,7 +57,7 @@ class PinsController < ApplicationController
     end
 
     def pin_params 
-      params.require(:pin).permit(:description, :image)
+      params.require(:pin).permit(:description, :image, :name)
     end
   
     def correct_user
@@ -65,4 +65,3 @@ class PinsController < ApplicationController
       redirect_to pins_path, notice: "Not authorized to edit this pin" if @pin.nil?
     end
 end
-
